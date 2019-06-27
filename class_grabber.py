@@ -27,24 +27,6 @@ class ClassGrabber(object):
     def append_details(self, array, detail):
         array.append(self.formatter(n=detail))
 
-    # def get_details(self):
-    #     temp = self.details.split("\n\t" and "\t" and "\n")
-    #
-    #     for line in temp:
-    #         if "(" and ")" in line or line == "":
-    #             self.get_method(line.replace("\t", ""))
-    #         else:
-    #             self.get_attrib(line.replace("\t", ""))
-    #     return self.attrib
-
-    def get_attrib(self, new_attrib):
-        temp = self.formatter(new_attrib)
-        self.attrib.append(temp)
-
-    def get_method(self, new_method):
-        temp = self.formatter(new_method)
-        self.methods.append(temp)
-
     def get_return_val(self, new_val):
         self.return_val = new_val
 
