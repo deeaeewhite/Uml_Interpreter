@@ -3,8 +3,6 @@ import os.path
 
 class FileValidator(object):
 
-    file = ''
-
     def __init__(self, new_file):
         self.file = new_file
 
