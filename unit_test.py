@@ -6,19 +6,23 @@ import file_validator
 class TestRefactoredCode(TestCase):
 
     def test_file_extension_check1(self):
-        self.assertTrue(file_validator.FileValidator("some.txt").
+        arrange = "some.txt"
+        self.assertTrue(file_validator.FileValidator(arrange).
                         file_extension_check())
 
     def test_file_extension_check2(self):
-        self.assertFalse(file_validator.FileValidator("some.doc").
+        arrange = "some.doc"
+        self.assertFalse(file_validator.FileValidator(arrange).
                          file_extension_check())
 
     def test_file_extension_check3(self):
-        self.assertTrue(file_validator.FileValidator("READ.txt").
+        arrange = "READ.txt"
+        self.assertTrue(file_validator.FileValidator(arrange).
                         file_extension_check())
 
     def test_file_extension_check4(self):
-        self.assertTrue(file_validator.FileValidator("test.txt").
+        arrange = "test.txt"
+        self.assertTrue(file_validator.FileValidator(arrange).
                         file_extension_check())
 
     def test_plant1(self):
@@ -37,31 +41,31 @@ class TestRefactoredCode(TestCase):
         self.assertFalse(i.file_extension_check())
 
     def test_formatter1(self):
-        input_text = "getBlock()"
+        arrange = "getBlock()"
         expected = 'get_block()'
         x = class_grabber.ClassGrabber(new_class_name="Tester", new_data="()")
-        self.assertEqual(x.formatter(input_text), expected)
+        self.assertEqual(x.formatter(arrange), expected)
 
     def test_formatter2(self):
-        input_text = "getBox()"
+        arrange = "getBox()"
         expected = 'get_box()'
         x = class_grabber.ClassGrabber(new_class_name="Tester", new_data="()")
-        self.assertEqual(x.formatter(input_text), expected)
+        self.assertEqual(x.formatter(arrange), expected)
 
     def test_formatter3(self):
-        input_text = "someMethod()"
+        arrange = "someMethod()"
         expected = 'some_method()'
         x = class_grabber.ClassGrabber(new_class_name="Tester", new_data="()")
-        self.assertEqual(x.formatter(input_text), expected)
+        self.assertEqual(x.formatter(arrange), expected)
 
     def test_check_ret1(self):
-        input_text = "int getWall()"
+        arrange = "int getWall()"
         expect = True
         x = class_grabber.ClassGrabber(new_class_name="Tester", new_data="()")
-        self.assertEqual(x.check_ret(input_text), expect)
+        self.assertEqual(x.check_ret(arrange), expect)
 
     def test_check_ret2(self):
-        input_text = "getWall()"
+        arrange = "getWall()"
         expect = False
         x = class_grabber.ClassGrabber(new_class_name="Tester", new_data="()")
-        self.assertEqual(x.check_ret(input_text), expect)
+        self.assertEqual(x.check_ret(arrange), expect)

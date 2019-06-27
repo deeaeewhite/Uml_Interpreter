@@ -10,13 +10,17 @@ class FileBuilder(Interpreter):
 
     def get_details(self):
         for x, y in self.dict.items():
-            a_class = class_grabber.ClassGrabber(new_class_name=x, new_data=y)
+            a_class = class_grabber.ClassGrabber(new_class_name=x,
+                                                 new_data=y)
 
             if self.get_rel(a_class.class_name.replace("{", "")):
-                a_class = class_grabber.ClassGrabber(new_class_name=x, new_data=y)
+                a_class = class_grabber.ClassGrabber(new_class_name=x,
+                                                     new_data=y)
                 self.result.append("import " + self.partner + "\n\n\n")
-                self.result.append("class " + a_class.class_name.replace("{", ":"))
-                self.result.append("\tdef __init__(self, " + self.partner.lower() + ":" + self.partner + "):\n")
+                self.result.append("class " + a_class.class_name.
+                                   replace("{", ":"))
+                self.result.append("\tdef __init__(self, " + self.partner.
+                                   lower() + ":" + self.partner + "):\n")
 
                 for line in a_class.attrib:
                     x = "\t\tself." + line.strip(" ")
@@ -34,14 +38,18 @@ class FileBuilder(Interpreter):
                     if a_class.check_ret(line):
                         r = line.split(" ")
 
-                        self.result.append("\tdef " + r[1].strip(" ") + "->" + r[0].strip(" ") + ": \n")
+                        self.result.append("\tdef " + r[1].strip(" ") +
+                                           "->" + r[0].strip(" ") +
+                                           ": \n")
                     else:
                         a_class.return_val = "None"
-                        self.result.append("\tdef " + line.strip(" ") + "-> None: \n")
+                        self.result.append("\tdef " + line.strip(" ") +
+                                           "-> None: \n")
                     self.result.append("\t\tpass \n")
 
             else:
-                self.result.append("class " + a_class.class_name.replace("{", ":"))
+                self.result.append("class " + a_class.class_name.
+                                   replace("{", ":"))
 
                 self.result.append("\tdef __init__(self):\n")
 
@@ -65,16 +73,20 @@ class FileBuilder(Interpreter):
                                 r.remove('')
                             except ValueError:
                                 break
-                        self.result.append("\tdef " + r[1].strip(" ") + "->" + r[0].strip(" ") + ": " + "\n")
+                        self.result.append("\tdef " + r[1].strip(" ") +
+                                           "->" + r[0].strip(" ") +
+                                           ": " + "\n")
                     elif line == "\n":
                         break
 
                     else:
                         a_class.return_val = "None"
-                        self.result.append("\tdef " + line.strip(" ") + "-> None: " + "\n")
+                        self.result.append("\tdef " + line.strip(" ") +
+                                           "-> None: " + "\n")
                     self.result.append("\t\tpass \n")
 
-            self.result.append("# =========================================================================\n")
+            self.result.append("# ===================================="
+                               "===================================\n")
 
         # returns new output
         for i in self.result:
@@ -89,4 +101,3 @@ class FileBuilder(Interpreter):
             self.get_details()
         else:
             print("Incorrect File")
-

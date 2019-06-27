@@ -17,13 +17,14 @@ class Interpreter(object):
             contents = file.readlines()
             for line in contents[1:]:
                 if line == '@startuml\n' or line == '@enduml':
-                    continue  # Takes out the header and footer parts of the txt file
+                    continue
                 if line == '\n':
-                    continue  # Takes out the extra lines
-                elif "*--" in line.split(" ") or "<|--" in line.split(" ") or "o--" in line.split(" "):
+                    continue
+                elif "*--" in line.split(" ") or "<|--" in line.split(" ") or\
+                        "o--" in line.split(" "):
                     self.rel.append(line)
                 else:
-                    self.file_contents.append(line)  # only adds the vital information to the actual content array
+                    self.file_contents.append(line)
 
             return self.file_contents
 

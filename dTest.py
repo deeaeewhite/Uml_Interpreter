@@ -62,6 +62,7 @@ def doc_test3(n):
     i = class_grabber.ClassGrabber(new_class_name="name", new_data="")
     return i.formatter(n)
 
+
 def doc_test4(n):
     """
     >>> doc_test3('getBlock()')
@@ -78,31 +79,28 @@ def doc_test4(n):
 
     """
 
-    i = class_grabber.ClassGrabber(new_class_name="name", new_data="")
-    i.methods(n)
-    return i.get_method
+    x = class_grabber.ClassGrabber(new_class_name="some", new_data="()")
+    x.append_details(array=x.attrib, detail=n)
+    return x.attrib
 
 
-
-def doc_test5(n):
+def get_details_test(n):
+    # Doc test for class_grabber.get_attrib()
     """
-    >>> doc_test3('getBlock')
-    'get_block'
-    >>> doc_test3('getInt')
-    'get_int'
-    >>> doc_test3('doThis')
-    'do_this'
-    >>> doc_test3('block')
-    'block'
-    >>> doc_test3('getAllFrom')
-    'get_all_from'
-
-
+    >>> get_details_test("oneTwo")
+    ['one_two']
+    >>> get_details_test("allMyText")
+    ['all_my_text']
+    >>> get_details_test("reverseText")
+    ['reverse_text']
+    >>> get_details_test("one")
+    ['one']
+    >>> get_details_test("allMyToys")
+    ['all_my_toys']
     """
-
-    i = class_grabber.ClassGrabber(new_class_name="name", new_data="")
-    i.get_attrib(n)
-    return i.get_attrib
+    x = class_grabber.ClassGrabber(new_class_name="some", new_data="()")
+    x.append_details(array=x.attrib, detail=n)
+    return x.attrib
 
 
 if __name__ == "__main__":

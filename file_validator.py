@@ -18,7 +18,8 @@ class FileValidator(object):
         try:
             with open(self.file, "r") as file:
                 contents = file.read()
-                if contents.startswith('@startuml') and contents.endswith('@enduml'):
+                if contents.startswith('@startuml') and \
+                        contents.endswith('@enduml'):
                     return True
                 else:
                     return False

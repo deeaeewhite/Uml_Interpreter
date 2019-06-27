@@ -1,7 +1,7 @@
 from cmd import Cmd
 import file_validator
-import InterpreterV4
-import View
+import file_builder
+import view
 import os
 
 
@@ -11,7 +11,7 @@ class Output(Cmd):
         Cmd.__init__(self)
         self.intro = "Welcome to UML builder. Press help or ? for command list"
         self.prompt = ">>>"
-        self.view = View.View()
+        self.view = view.View()
 
     def do_check(self, file):
         """check {file}
@@ -21,7 +21,8 @@ class Output(Cmd):
             if fvalid.check():
                 self.view.say("File is Valid for extracting")
             else:
-                self.view.say("File is incorrect format or may not be PlantUML")
+                self.view.say("File is incorrect format or "
+                              "may not be PlantUML")
         else:
             self.view.say("File not specified a file")
 
@@ -41,7 +42,7 @@ class Output(Cmd):
             Load the file data """
 
         if file:
-            a_load = InterpreterV4.Interpreter(file)
+            a_load = file_builder.FileBuilder(file)
             a_load.load()
         else:
             self.view.say("File not specified")
