@@ -3,17 +3,16 @@ import file_validator
 
 
 class Interpreter(object):
-    file = ''
-    file_contents = []
-    my_classes = []
-    str = ''
-    rel = []
-    fin = ''
-    partner = ''
 
     def __init__(self, file):
         self.file = file
         self.dict = {}
+        self.file_contents = []
+        self.my_classes = []
+        self.str = ''
+        self.rel = []
+        self.fin = ''
+        self.partner = ''
 
     def read_file(self):
 
@@ -35,14 +34,12 @@ class Interpreter(object):
         count = 0
         class_count = 0
         temp_str = ''
-        temp_fin = ''
 
         for line in self.file_contents:
 
             if 'class' in line and '{\n':
                 temp = line.split(' ')
                 self.my_classes.append(temp[1])
-                # print(self.my_classes)
                 class_count += 1
                 count = 1
                 continue
@@ -96,7 +93,6 @@ class Interpreter(object):
 
         for x, y in self.dict.items():
             a_class = class_grabber.ClassGrabber(new_class_name=x, new_data=y)
-            # print(a_class.methods)
 
             if self.get_rel(a_class.class_name.replace("{", "")):
                 a_class = class_grabber.ClassGrabber(new_class_name=x, new_data=y)
@@ -119,7 +115,6 @@ class Interpreter(object):
                     if a_class.check_ret(line):
                         r = line.split(" ")
 
-                        # print(r)
                         print("\tdef", r[1].strip(" "), "->", r[0].strip(" "), ": \n")
                     else:
                         a_class.return_val = "None"
@@ -140,7 +135,6 @@ class Interpreter(object):
                 print("\n")
 
                 for line in a_class.methods:
-                    # print(a_class.check_ret(line))
                     if line == '':
                         continue
                     if a_class.check_ret(line):
@@ -150,7 +144,6 @@ class Interpreter(object):
                                 r.remove('')
                             except ValueError:
                                 break
-                        # print(r)
                         print("\tdef", r[1].strip(" "), "->", r[0].strip(" "), ": ")
                     elif line == "\n":
                         break

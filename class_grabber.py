@@ -1,21 +1,17 @@
 class ClassGrabber(object):
-    details = []
-    class_name = ""
-    methods = []
-    attrib = []
-    para = []
-    return_val = ""
-    ret = False
-    new_str = ''
 
     def __init__(self, new_class_name, new_data):
         self.class_name = new_class_name
         self.details = new_data
+        self.methods = []
+        self.attrib = []
+        self.para = []
+        self.return_val = ""
+        self.ret = False
+        self.new_str = ''
         self.get_details()
 
     def get_details(self):
-        self.methods = []
-        self.attrib = []
         temp = self.details.split("\n\t" and "\t" and "\n")
 
         for line in temp:
