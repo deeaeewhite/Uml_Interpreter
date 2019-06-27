@@ -14,3 +14,4 @@ class Controller:
         a_file.load()
 
         self.view.say("Finished.")
+
