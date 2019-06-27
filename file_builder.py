@@ -76,7 +76,7 @@ class FileBuilder(Interpreter):
 
             self.result.append("# =========================================================================\n")
 
-        # returns new wireframe
+        # returns new output
         for i in self.result:
             self.final = self.final + i
         print(self.final)
