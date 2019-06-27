@@ -65,3 +65,15 @@ class TestRefactoredCode(TestCase):
         expect = False
         x = class_grabber.ClassGrabber(new_class_name="Tester", new_data="()")
         self.assertEqual(x.check_ret(input_text), expect)
+
+    def test_get_method(self):
+        self.fail()
+
+    def test_get_return_val(self):
+        self.fail()
+
+    def test_get_para(self):
+        self.fail()
+
+    def test_check_ret(self):
+        self.fail()

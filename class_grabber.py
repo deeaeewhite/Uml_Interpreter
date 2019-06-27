@@ -12,14 +12,30 @@ class ClassGrabber(object):
         self.get_details()
 
     def get_details(self):
+        self.attrib = []
+        self.methods = []
         temp = self.details.split("\n\t" and "\t" and "\n")
 
         for line in temp:
-            if "(" and ")" in line or line == "":
-                self.get_method(line.replace("\t", ""))
+            x = line.replace("\t", "")
+            if "(" and ")" in line:
+                self.append_details(array=self.methods, detail=x)
             else:
-                self.get_attrib(line.replace("\t", ""))
-        return self.attrib
+                self.append_details(array=self.attrib, detail=x)
+        return self.attrib, self.methods
+
+    def append_details(self, array, detail):
+        array.append(self.formatter(n=detail))
+
+    # def get_details(self):
+    #     temp = self.details.split("\n\t" and "\t" and "\n")
+    #
+    #     for line in temp:
+    #         if "(" and ")" in line or line == "":
+    #             self.get_method(line.replace("\t", ""))
+    #         else:
+    #             self.get_attrib(line.replace("\t", ""))
+    #     return self.attrib
 
     def get_attrib(self, new_attrib):
         temp = self.formatter(new_attrib)
