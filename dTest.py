@@ -105,7 +105,5 @@ def doc_test5(n):
     return i.get_attrib
 
 
-
-
 if __name__ == "__main__":
     doctest.testmod()
