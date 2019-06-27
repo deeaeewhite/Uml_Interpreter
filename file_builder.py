@@ -1,85 +1,32 @@
 import class_grabber
+import file_validator
+from file_interpreter import Interpreter
 
 
-class FileBuilder(object):
-
+class FileBuilder(Interpreter):
     def __init__(self, file):
-        self.file = file
-        self.dict = {}
-        self.file_contents = []
-        self.my_classes = []
-        self.str = ''
-        self.rel = []
-        self.fin = ''
-        self.partner = ''
-
-    def data_parser(self):
-        count = 0
-        class_count = 0
-        temp_str = ''
-
-        for line in self.file_contents:
-
-            if 'class' in line and '{\n':
-                temp = line.split(' ')
-                self.my_classes.append(temp[1])
-                class_count += 1
-                count = 1
-                continue
-
-            elif '}\t\n' in line or '}\n' in line:
-                count = 0
-
-            if count == 1:
-                temp_str += ''.join(line)
-
-            else:
-                self.fin = temp_str
-                self.dict[self.my_classes[class_count-1]] = self.fin
-
-                temp_str = ''
-
-        return self.dict
-
-    def get_rel(self, class_name):
-
-        has_rel = False
-
-        self.partner = ''
-
-        for x in self.rel:
-            temp_x = x.split(" ")
-            if class_name == temp_x[2]:
-                self.partner = temp_x[0]
-                has_rel = True
-
-            else:
-                has_rel = False
-
-            if has_rel is True:
-                break
-
-        return has_rel
+        super().__init__(file)
+        self.final = ""
 
     def get_details(self):
-
         for x, y in self.dict.items():
             a_class = class_grabber.ClassGrabber(new_class_name=x, new_data=y)
 
             if self.get_rel(a_class.class_name.replace("{", "")):
                 a_class = class_grabber.ClassGrabber(new_class_name=x, new_data=y)
-                print("import ", self.partner, "\n\n")
-                print("class", a_class.class_name.replace("{", ":"))
-                print("\tdef __init__(self, ", self.partner.lower(), ":", self.partner, "):\n")
+                self.result.append("import " + self.partner + "\n\n\n")
+                self.result.append("class " + a_class.class_name.replace("{", ":"))
+                self.result.append("\tdef __init__(self, " + self.partner.lower() + ":" + self.partner + "):\n")
 
                 for line in a_class.attrib:
+                    x = "\t\tself." + line.strip(" ")
                     if 'all' in line:
-                        print("\t\tself." + line.strip(" ") + " = []")
+                        self.result.append(x + " = []" + "\n")
                     elif 'int' in line:
-                        print("\t\tself." + line.strip(" ") + " = 0")
+                        self.result.append(x + " = 0" + "\n")
                     else:
-                        print("\t\tself." + line.strip(" "))
-                print("\n")
+                        self.result.append(x + "\n")
+                self.result.append("\n")
 
                 for line in a_class.methods:
                     if line == '':
@@ -87,24 +34,26 @@ class FileBuilder(object):
                     if a_class.check_ret(line):
                         r = line.split(" ")
 
-                        print("\tdef", r[1].strip(" "), "->", r[0].strip(" "), ": \n")
+                        self.result.append("\tdef " + r[1].strip(" ") + "->" + r[0].strip(" ") + ": \n")
                     else:
                         a_class.return_val = "None"
-                        print("\tdef", line.strip(" "), "-> None: \n")
+                        self.result.append("\tdef " + line.strip(" ") + "-> None: \n")
+                    self.result.append("\t\tpass \n")
 
             else:
-                print("class", a_class.class_name.replace("{", ":"))
+                self.result.append("class " + a_class.class_name.replace("{", ":"))
 
-                print("\tdef __init__(self):\n\t")
+                self.result.append("\tdef __init__(self):\n")
 
                 for line in a_class.attrib:
+                    x = "\t\tself." + line.strip(" ")
                     if 'all' in line:
-                        print("\t\tself." + line.strip(" ") + " = []")
+                        self.result.append(x + " = []" + "\n")
                     elif 'int' in line:
-                        print("\t\tself." + line.strip(" ") + " = 0")
+                        self.result.append(x + " = 0" + "\n")
                     else:
-                        print("\t\tself." + line.strip(" "))
-                print("\n")
+                        self.result.append(x + "\n")
+                self.result.append("\n")
 
                 for line in a_class.methods:
                     if line == '':
@@ -116,13 +65,27 @@ class FileBuilder(object):
                                 r.remove('')
                             except ValueError:
                                 break
-                        print("\tdef", r[1].strip(" "), "->", r[0].strip(" "), ": ")
+                        self.result.append("\tdef " + r[1].strip(" ") + "->" + r[0].strip(" ") + ": " + "\n")
                     elif line == "\n":
                         break
 
                     else:
                         a_class.return_val = "None"
-                        print("\tdef", line.strip(" "), "-> None: ")
-                    print("\t\tpass \n")
+                        self.result.append("\tdef " + line.strip(" ") + "-> None: " + "\n")
+                    self.result.append("\t\tpass \n")
 
-            print("# =========================================================================\n")
+            self.result.append("# =========================================================================\n")
+
+        # returns new wireframe
+        for i in self.result:
+            self.final = self.final + i
+        print(self.final)
+
+    def load(self):
+        file_validate = file_validator.FileValidator(new_file=self.file)
+        if file_validate.check():
+            self.read_file()
+            self.data_parser()
+            self.get_details()
+        else:
+            print("Incorrect File")

@@ -1,4 +1,4 @@
-import file_interpreter
+import file_builder
 import view
 
 
@@ -10,7 +10,7 @@ class Controller:
     def go_starter(self):
 
         a = input('Enter File: ')
-        a_file = file_interpreter.Interpreter(a)
+        a_file = file_builder.FileBuilder(a)
         a_file.load()
 
         self.view.say("Finished.")
