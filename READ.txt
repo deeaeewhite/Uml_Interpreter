@@ -1,0 +1,38 @@
+@startuml
+LevelEditor <|-- gag
+LevelEditor <|-- Test
+
+
+
+class LevelEditor{
+  allMyBlocks
+  allMyWalls
+  allMyTargets
+  thePlayer
+  row
+  columns
+  grid
+  int get_block()
+  str get_all()
+  get_target()
+  get_player()
+}
+
+
+class gag{
+  row
+  columns
+  grid
+  getBlock(inputAge, inputName)
+  get_wall()
+  get_target()
+  get_player()
+}
+
+class Test{
+  row
+  col
+  magTJii()
+}
+
+@enduml
